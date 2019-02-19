@@ -1,0 +1,489 @@
+@import "lib/_mixins.scss";
+
+div.jcemslider[data-slider]{
+  background: #293a41;
+  padding: 0;
+  display: block;
+  clear: both;
+
+  min-height: 120px;
+  min-width: 120px;
+
+  height: auto !important;
+  max-height: initial !important;
+
+  margin: 0!important;
+  padding: 0!important;
+  white-space: nowrap;
+
+  &,*{
+    color: #fff;
+    vertical-align:middle !important; /* https://stackoverflow.com/questions/10612380/get-rid-of-space-underneath-inline-block-mgi */
+  }
+
+  &, *{
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  > div.seletor > label,
+  > div.mgs > .qdr > div.mgi{
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: auto 100% !important;
+
+    > img{
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: initial !important;
+      height: auto !important;
+    }
+  }
+
+  &.cover,
+  &.fitheight,
+  &[height]{
+    > div.seletor > label,
+    > div.mgs > .qdr > div.mgi{
+      > img{
+        display: none !important;
+      }
+    }
+
+    > div.mgs{
+      max-height: 100%;
+      height: 100% !important;
+    }
+  }
+
+  &.cover{
+    > div.seletor > label,
+    > div.mgs > .qdr > div.mgi{
+      background-size: cover !important;
+    }
+  }
+
+  &.fitheight{
+    > div.seletor > label,
+    > div.mgs > .qdr > div.mgi{
+      background-size: 100% auto !important;
+    }
+  }
+
+  > nav.seletor{
+    z-index: 1;
+    position: absolute;
+
+    top: .7em;
+    left: 0;
+    width: 100%;
+    min-height: 1.3em;
+    line-height: 1.3em;
+    text-align: center !important;
+
+    > label{
+      display: inline-block;
+
+      margin: 0 .15em;
+      height: .6em;
+      width: .6em;
+
+      border: 1px solid transparent;
+
+      cursor: pointer;
+
+      @include border-radius(.31em);
+      @include box-shadow(0,0,1.5em,rgba(0,0,0,.25));
+      @include transition(.2s, 0s);
+
+      &:hover{
+        background: #fff;
+        border-color: rgba(0,0,0,.2);
+        @include box-shadow(0,0,1em,rgba(0,0,0,.3));
+      }
+
+      > img{
+        display: none;
+      }
+    }
+  }
+
+  &.miniaturas,
+  &.miniatura{
+    > nav.seletor{
+      white-space: normal !important;
+
+      > label{
+        > img{
+          display: block;
+        }
+      }
+    }
+  }
+
+  &:not(.miniaturas){
+    &:not(.miniatura){
+      > nav.seletor{
+        white-space: nowrap !important;
+
+        > label{
+          background: rgba(230,230,230,.7) !important;
+
+          &:hover{
+            background: #fff !important;
+          }
+        }
+      }
+    }
+  }
+
+  > nav.pvnt{
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    top: calc(50% - 1.3em);
+    left: 0;
+    width: 100%;
+
+    @include transition(.2s, 0s);
+
+    > label{
+      display: none;
+      float: left;
+      width: 2.5em;
+      height: 2.5em;
+      background: #fff;
+      cursor: pointer;
+      background: rgba(255,255,255,.35);
+
+      margin: 0 1em;
+
+      @include border-radius(1.6em);
+      @include transition(.2s, 0s);
+      @include box-shadow(0,0,2em,rgba(0,0,0,.15));
+
+      &:hover{
+        background: rgba(255,255,255,.8);
+      }
+
+      &:before{
+        content: "\f104";
+        font-size: 2.5em;
+        line-height: 1.02em;
+        color: rgba(0,0,0,0.7);
+        display: block;
+        text-align: center;
+      }
+
+      > img{
+        display: none;
+      }
+    }
+  }
+
+  &:hover{
+    > nav.pvnt{
+      opacity: 1;
+    }
+  }
+
+  > div.mgs{
+    z-index: 0;
+
+    font-size: 0; /* https://css-tricks.com/fighting-the-space-between-inline-block-elements/ */
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 100%;
+    max-width: 100%;
+
+    p, br{
+      display: none;
+    }
+
+    > .qdr{
+      font-size: 1rem !important;
+      display: inline-block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align:middle !important; /* https://stackoverflow.com/questions/10612380/get-rid-of-space-underneath-inline-block-mgi */
+
+      @include transition(.85s,0s,all, cubic-bezier(0.77, 0, 0.175, 1));
+
+      > .cnt{
+        position: absolute !important;
+        max-width: 45%;
+        max-height: calc(45% - 2em);
+        bottom: 1.5em;
+        left: 1em;
+
+        opacity: 0;
+        margin-left: 15%;
+        @include transition(.7s, .5s);
+
+        &,*{
+          text-shadow: 0 0 1em rgba(0,0,0,1) !important;
+        }
+
+        > h3.ttl,
+        > div.text{
+          position: relative;
+          white-space: normal;
+          text-align: left !important;
+        }
+
+        > h3.ttl{
+        }
+
+        > div.text{
+
+        }
+      }
+
+      > div.mgi{
+        height: auto !important;
+        min-height: initial 1important;
+        min-height: 100%;
+        max-width: 100% !important;
+
+        &, > img{
+          display: block;
+          max-width: 100% !important;
+          vertical-align:middle !important; /* https://stackoverflow.com/questions/10612380/get-rid-of-space-underneath-inline-block-mgi */
+        }
+      }
+    }
+
+    > a.qdr{
+      text-decoration: none;
+
+      &[href]:hover{
+        h3{
+          text-decoration: underline;
+        }
+      }
+
+      &:before,&:after{
+        display: none !important;
+      }
+    }
+  }
+
+  > input[type=radio]{
+    opacity: 0;
+    position: absolute;
+    left: -100px;
+    top: 0;
+    z-index: 100;
+    font-size:  0;
+    height: 1px !important;
+    width: 1px !important;
+    max-height: 1px !important;
+    max-width: 1px !important;
+
+    & ~ div.mgs > .qdr{
+      margin-left: -100%;
+      pointer-events: none;
+    }
+
+    @for $i from 0 through 100{
+      &[ndc='#{$i}'] {
+        &:checked{
+          & ~ div.mgs{
+            > .qdr{
+              &[ndc='#{$i}']{
+                pointer-events: initial !important;
+                margin-left: 0 !important;
+                margin-right: 100% !important;
+
+                > div.cnt{
+                  opacity: 1 !important;
+                  margin-left: 0;
+                }
+              }
+            }
+          }
+
+          ~ nav label:not(.pvnt)[ndc='#{$i}']{
+            background: rgba(0,0,0,.7) !important;
+            border-color: rgba(0,0,0,.8);
+          }
+
+          @if ($i < 100){
+            ~nav.pvnt label[ndc='#{$i + 1}']{
+              display: block;
+              float: right;
+              &:before{
+                content: '\f105';
+              }
+            }
+          }
+
+          @if ($i > 0){
+            ~nav.pvnt label[ndc='#{$i - 1}']{
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.fade{
+    > input[type=radio]{
+      & ~ div.mgs > .qdr{
+        position: absolute !important;
+        top:0 !important;
+        left: 0 !important;
+        display: block;
+        opacity: 0;
+
+        &:first-of-type{
+          float: left;
+          position: relative !important;
+        }
+
+        &:not(:first-of-type){
+          max-height: 100%;
+          max-width: 100%;
+        }
+      }
+
+      @for $i from 0 through 100{
+        &[ndc='#{$i}'] {
+          &:checked{
+            & ~ div.mgs > .qdr{
+              &[ndc='#{$i}']{
+                opacity: 1 !important;
+                pointer-events: initial !important;
+              }
+            }
+
+          }
+        }
+      }
+
+      &,&:checked{
+        & ~ div.mgs > .qdr{
+          margin-right: 0 !important;
+          margin-left: 0 !important;
+        }
+      }
+    }
+  }
+
+  &.miniatura{
+    clear: both;
+    padding-bottom: .7em !important;
+    padding-top: .7em !important;
+
+    > input[type=radio] ~ div.mgs,
+    > div.mgs{
+      float: left;
+
+
+      > .qdr{
+        > div.mgi{
+          float: left !important;
+          max-width: calc(55% - .5em) !important;
+          width: calc(55% - .5em) !important;
+
+          > img{
+            width: 100% !important;
+            height: auto 1important;
+          }
+        }
+
+        > div.cnt{
+          position: relative !important;
+          max-width: calc(45%) !important;
+          width: auto !important;
+          margin: 0 0 0 calc(55% - .5em) !important;
+          margin-top: 1em;
+          padding: 0 !important;
+          margin-right: 0 !important;
+
+          &,*{
+            text-shadow: 0 0 1em transparent !important;
+          }
+
+          > *{
+            margin-right: 1em;
+          }
+
+          > div.text{
+            color: rgba(255,255,255,.7);
+            font-size: .9em;
+          }
+
+          > h3{
+            &:first-of-type{
+              margin-top: 1em;
+            }
+          }
+        }
+      }
+    }
+
+    > nav.pvnt{
+      max-width: calc(55% - .5em) !important;
+      top: calc(50% - 3.7em);
+    }
+
+    > nav.seletor{
+      position: relative;
+      clear: both;
+      background: rgba(0,0,0,.1);
+      padding: .4em;
+      padding-top: .5em;
+      white-space: normal;
+
+      > label{
+        display: inline-block;
+        width: 5.33em;
+        height: 100%;
+        margin: .15em !important;
+
+        border: .15em solid #fff;
+        opacity: .7;
+        overflow: hidden;
+
+        @include border-radius(.2em);
+        @include box-shadow(0,0,0,#000);
+
+        &:hover{
+          opacity: 1;
+          border-color: #000;
+        }
+
+        > img{
+          min-height: 100%;
+          min-width: 100%;
+          max-height: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+
+    > input[type=radio]{
+      @for $i from 0 through 100{
+        &[ndc='#{$i}'] {
+          &:checked{
+            ~ nav label:not(.pvnt)[ndc='#{$i}']{
+              border-color: red !important;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
