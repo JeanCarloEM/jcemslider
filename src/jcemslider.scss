@@ -76,7 +76,7 @@ div.jcemslider[data-slider]{
     z-index: 1;
     position: absolute;
 
-    top: .7em;
+    bottom: 2em;
     left: 0;
     width: 100%;
     min-height: 1.3em;
@@ -110,10 +110,16 @@ div.jcemslider[data-slider]{
     }
   }
 
+  &.topnav > nav.seletor{
+    bottom: initial !important;
+    top: 1.5em;
+  }
+
   &.miniaturas,
   &.miniatura{
     > nav.seletor{
       white-space: normal !important;
+      bottom: 0;
 
       > label{
         > img{
@@ -217,27 +223,37 @@ div.jcemslider[data-slider]{
 
       > .cnt{
         position: absolute !important;
-        max-width: 45%;
+        max-width: calc(70% - 4em) !important;
         max-height: calc(45% - 2em);
-        bottom: 1.5em;
-        left: 1em;
+        height: calc(45% - 2em);
+        overflow: hidden;
+        top: 1.5em;
+        left: 4em;
 
         opacity: 0;
         margin-left: 15%;
         @include transition(.7s, .5s);
 
+        > *:not(.content){
+          > *:not(.text){
+            display: none !important;
+          }
+        }
+
         &,*{
           text-shadow: 0 0 1em rgba(0,0,0,1) !important;
         }
 
-        > h3.ttl,
+        > .ttl,
         > div.text{
           position: relative;
           white-space: normal;
           text-align: left !important;
         }
 
-        > h3.ttl{
+        > .ttl{
+          font-size: 1.4em;
+          font-weight: bold;
         }
 
         > div.text{
@@ -263,7 +279,7 @@ div.jcemslider[data-slider]{
       text-decoration: none;
 
       &[href]:hover{
-        h3{
+        .ttl{
           text-decoration: underline;
         }
       }
@@ -272,6 +288,11 @@ div.jcemslider[data-slider]{
         display: none !important;
       }
     }
+  }
+
+  &.topnav > div.mgs > .qdr > .cnt{
+    top: initial !important;
+    bottom: 1.5em;
   }
 
   > input[type=radio]{
@@ -285,6 +306,26 @@ div.jcemslider[data-slider]{
     width: 1px !important;
     max-height: 1px !important;
     max-width: 1px !important;
+
+    &[ndc]:first-of-type{
+      &:checked{
+        ~nav.pvnt label.pvnt[ndc]:last-of-type{
+          display: block !important;
+        }
+      }
+    }
+
+    &[ndc]:last-of-type{
+      &:checked{
+        ~nav.pvnt label.pvnt[ndc]:first-of-type{
+          display: block !important;
+          float: right !important;
+          &:before{
+            content: '\f105';
+          }
+        }
+      }
+    }
 
     & ~ div.mgs > .qdr{
       margin-left: -100%;
@@ -377,62 +418,67 @@ div.jcemslider[data-slider]{
     }
   }
 
+  &.miniaturas,
   &.miniatura{
     clear: both;
-    padding-bottom: .7em !important;
-    padding-top: .7em !important;
 
-    > input[type=radio] ~ div.mgs,
-    > div.mgs{
-      float: left;
+    &:not(.rightnav){
+      &:not(.leftnav){
+        > input[type=radio] ~ div.mgs,
+        > div.mgs{
+          float: left;
 
+          > .qdr{
+            > div.mgi{
+              float: left !important;
+              max-width: calc(55% - .5em) !important;
+              width: calc(55% - .5em) !important;
 
-      > .qdr{
-        > div.mgi{
-          float: left !important;
-          max-width: calc(55% - .5em) !important;
-          width: calc(55% - .5em) !important;
+              > img{
+                width: 100% !important;
+                height: auto 1important;
+              }
+            }
 
-          > img{
-            width: 100% !important;
-            height: auto 1important;
-          }
-        }
+            > .cnt{
+              position: relative !important;
+              max-width: calc(45%) !important;
+              max-height: calc(100% - 2.5em);
+              height: calc(100% - 2.5em);
+              width: auto !important;
+              margin: 0 0 0 calc(55% - .5em) !important;
+              padding: 0 1em !important;
+              left: 0;
+              top: .5em;
+              margin-right: 0 !important;
 
-        > div.cnt{
-          position: relative !important;
-          max-width: calc(45%) !important;
-          width: auto !important;
-          margin: 0 0 0 calc(55% - .5em) !important;
-          margin-top: 1em;
-          padding: 0 !important;
-          margin-right: 0 !important;
+              &,*{
+                text-shadow: 0 0 1em transparent !important;
+              }
 
-          &,*{
-            text-shadow: 0 0 1em transparent !important;
-          }
+              > *{
+                margin-right: 1em;
+              }
 
-          > *{
-            margin-right: 1em;
-          }
+              > div.text{
+                color: rgba(255,255,255,.7);
+                font-size: .9em;
+              }
 
-          > div.text{
-            color: rgba(255,255,255,.7);
-            font-size: .9em;
-          }
-
-          > h3{
-            &:first-of-type{
-              margin-top: 1em;
+              > .ttl{
+                &:first-of-type{
+                  margin-top: 1em;
+                }
+              }
             }
           }
         }
-      }
-    }
 
-    > nav.pvnt{
-      max-width: calc(55% - .5em) !important;
-      top: calc(50% - 3.7em);
+        > nav.pvnt{
+          max-width: calc(55% - .5em) !important;
+          top: calc(50% - 3.7em);
+        }
+      }
     }
 
     > nav.seletor{
@@ -470,6 +516,60 @@ div.jcemslider[data-slider]{
       }
     }
 
+    &.rightnav,
+    &.leftnav{
+      > input[type=radio] ~ div.mgs,
+      > div.mgs{
+        float: left;
+        width: calc(70% - 1em) !important;
+        max-width: calc(70% - 1em) !important;
+        margin: 0 !important;
+      }
+
+      > nav.seletor{
+        background: transparent;
+        position: absolute;
+        top: .25em;
+        left: auto;
+        right: 0;
+        max-width: 30% !important;
+        height: calc(100% - .5em) !important;
+        padding: .5em;
+        padding-right: .8em;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        > label{
+          width: 100%;
+          height: auto !important;
+          margin: .3em 0 !important;
+          > img{
+            height: auto !important;
+            min-height: initial !important;
+          }
+        }
+      }
+
+      > .pvnt{
+        width: calc(70% - 1em) !important;
+      }
+    }
+
+    &.leftnav{
+      > nav.seletor{
+        left: 0;
+        right: auto !important;
+        padding-right: .5em;
+        padding-left: .7em;
+      }
+
+      > input[type=radio] ~ div.mgs,
+      > div.mgs,
+      > .pvnt{
+        margin-left: 30% !important;
+      }
+    }
+
     > input[type=radio]{
       @for $i from 0 through 100{
         &[ndc='#{$i}'] {
@@ -484,6 +584,3 @@ div.jcemslider[data-slider]{
     }
   }
 }
-
-
-
