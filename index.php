@@ -1,4 +1,132 @@
-<!DOCTYPE html>
+<?php
+$text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean hendrerit condimentum odio et porttitor. Integer congue arcu sed sagittis sodales. Praesent nec tincidunt velit. Ut finibus pellentesque velit, quis eleifend nisi venenatis et. Praesent non magna a tellus vehicula condimentum vel non sem. Sed non eleifend massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tellus tortor, facilisis quis mauris vel, facilisis bibendum justo. Aenean quis malesuada nibh. ";
+
+$items = [
+    [
+        "url" => 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg',
+        "title" => 'My Photo 1',
+        "content_html" => $text
+    ],
+    [
+        "url" => 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg',
+        "title" => 'My Photo 2',
+        "content_html" => $text
+    ],
+    [
+        "url" => 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg',
+        "title" => 'My Photo 3',
+        "content_html" => $text
+    ],
+    [
+        "url" => 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg',
+        "title" => 'My Photo 4',
+        "content_html" => $text
+    ]
+];
+
+/*
+ * CRIA O JCEM-SLIDER
+ */
+
+function jcemslider($entranda, array $class = [], array $args = [], $size = null, $div_size = null) {
+  $inputs = '';
+  $prev_next = '';
+  $imgs = '';
+  $miniaturas = '';
+
+  $props = '';
+  foreach ($args as $key => $value) {
+    $props .= " $key='$value'";
+  }
+
+  $cls = \implode(' ', $class ?? []);
+
+
+  /* NOME DO GRUPO DE INPUT RADIOS */
+  $slider = 'jcemslider_' . strtolower(hash('sha1', \random_bytes(24)));
+
+  foreach ($entranda[0] as $key => &$value) {
+    /* ID DO INPUT */
+    $input_id = 'jcemslider_' . strtolower(hash('sha1', \random_bytes(24)));
+
+    /*
+     * INPUTS
+     */
+    $inputs .= "<input type='radio' id='$input_id' class='sldtxt' name='$slider' ndc='$key'" . ($key === 0 ? ' checked ' : '') . "/>";
+
+    /*
+     * ARTIGOS / IMAGENS
+     */
+    $imgs .= <<<EOF
+<!-- START :: ITEM SLIDER -->
+<a class='qdr' ndc='$key'>
+  <div class='mgi' style='background-image: url("{$value['url']}") !important;'>
+    <img src='{$value['url']}' />
+  </div>
+  <div class='cnt'>
+    <div class='ttl'>{$value['title']}</div>
+    <div class='text'>{$value['content_html']}</div>
+  </div>
+</a>
+<!-- END :: ITEM SLIDER -->
+EOF;
+
+    /*
+     * BOTOES PREV E NEXT
+     */
+    $prev_next .= "<label for='$input_id' class='pvnt fas' ndc='$key'></label>";
+
+    /*
+     * SELETOR / MINIATURAS
+     */
+    $miniaturas .= <<<EOF
+  <label for='$input_id' ndc='$key' style="background-image: url('{$value['url']}');">
+    <img src='{$value['url']}' />
+  </label>
+EOF;
+  }
+
+  $size = $size ? " style='height: $size !important;'" : '';
+  $div_size = $div_size ? " style='height: $div_size !important;'" : '';
+
+  return <<<EOF
+
+
+
+ <!-- START :: SLIDER -->
+
+<div data-slider='slider1' class='jcemslider $cls' $props$div_size>
+
+  <!-- START :: INPUTS -->
+  $inputs
+  <!-- END :: INPUTS -->
+
+  <!-- START :: IMAGENS -->
+  <div class='mgs'$size>
+    $imgs
+  </div>
+  <!-- END :: IMAGENS -->
+
+  <!-- START :: BTB PREV E NEXT -->
+  <nav class='pvnt'>
+    $prev_next
+  </nav>
+  <!-- END :: BTB PREV E NEXT -->
+
+  <!-- START :: BTB PREV E NEXT -->
+  <nav class='seletor'>
+    $miniaturas
+  </nav>
+  <!-- END :: BTB PREV E NEXT -->
+
+</div>
+
+<!-- END :: SLIDER -->
+
+
+EOF;
+}
+?><!DOCTYPE html>
 <html lang="pt-BR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" itemscope itemtype="http://schema.org/Blog">
   <head>
     <!-- START - Open Graph for Facebook, Google+ and Twitter Card Tags 2.2.4.2 -->
@@ -67,7 +195,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- SLIDER -->
-    <script type="text/javascript" src="src/jcemslider.min.js"></script>
+    <script type="text/javascript" src="src/jcemslider.js"></script>
 
     <!-- CONTGROLES DO TEMA -->
     <script type="text/javascript" src="assets/js/main.min.js"></script>
@@ -133,9 +261,7 @@
       <header class="first fixed">
         <div class="colunabarra icon">
 
-          <a class='nosimbol' href="https://blog.jeancarloem.com"><img src="http://jeancarloem.com/favicon/logo.png" alt="Logo" class="mainlogo" style='height: 5em;
-                                                                       margin-top: -1em;
-                                                                       max-height: initial !important;' /></a>
+          <a class='nosimbol' href="https://blog.jeancarloem.com"><img src="http://jeancarloem.com/favicon/logo.png" alt="Logo" class="mainlogo" style='height: 5em; margin-top: -1em; max-height: initial !important;' /></a>
 
           <div class='ico menu'><div class='fa'></div></div>
           <div class="ico follow"><div class="fas fa-caret-down before"></div></div>
@@ -183,7 +309,7 @@
                   <li>Exibição de imagem em 3 modos diferentes <i>(padrão, fitheight e cover)</i>;</li>
                   <li>Exibição com ou sem miniaturas;</li>
                   <li>Habilitado para até 100 imagens;</li>
-                  <li>Transição automática com javascrip puro <i>(opicional)</i>;</li>
+                  <li>Transição automática com javascript puro <i>(opicional)</i>;</li>
                   <li>Opensource sob licença <a href='https://choosealicense.com/licenses/mpl-2.0/' targe='_blanck'>Mozilla Public License</a>.</li>
                 </ul>
 
@@ -192,90 +318,10 @@
                 <p>A exibição "cheia", significa que as imagens ocuparão toda a largura ou toda a altura do slide. Existem 3 modos, sendos eles o <b>padrão</b>, em que a imagem é exibida na sua proporção original preenchendo a largura total; o <b>fitheight</b> em que as imagens são exibidas numa altura predeterminada, e sua largura é proporcional; e finalmente, o modo <b>cover</b> em que a imagem preenche todo o quadro, centralizada verticalmente e horizontalmente. Em alguns casos, pode ser imperceptível a diferença entre o cover e fitheight.</p>
 
                 <h3>Padrão</h3>
-                <!--
-                START :: SLIDER
 
-                -->
-                <div data-slider='slider1' class='jcemslider'>
-                  <input type='radio' id='slider1_img1' class='sldtxt' name='slider1_slider1' ndc='0' checked />
-                  <input type='radio' id='slider1_img2' class='sldtxt' name='slider1_slider1' ndc='1' />
-                  <input type='radio' id='slider1_img3' class='sldtxt' name='slider1_slider1' ndc='2' />
-                  <input type='radio' id='slider1_img4' class='sldtxt' name='slider1_slider1' ndc='3' />
-
-                  <div class='mgs'>
-                    <a class='qdr' ndc='0'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 1</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='1'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 2</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='2'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 3</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='3'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 4</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                  </div>
-
-                  <nav class='pvnt'>
-                    <label for='slider1_img1' class='pvnt fas' ndc='0'></label>
-                    <label for='slider1_img2' class='pvnt fas' ndc='1'></label>
-                    <label for='slider1_img3' class='pvnt fas' ndc='2'></label>
-                    <label for='slider1_img4' class='pvnt fas' ndc='3'></label>
-                  </nav>
-
-                  <nav class='seletor'>
-                    <label for='slider1_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                    </label>
-                    <label for='slider1_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                    </label>
-                    <label for='slider1_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                    </label>
-                    <label for='slider1_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                    </label>
-                  </nav>
-                </div>
-                <!-- END :: SLIDER -->
+                <?php
+                echo jcemslider([$items]);
+                ?>
 
                 <br />
                 <p>Neste modo as imagens são mostradas em seu tamanho proporcional, largura de 100% do espaço disponível e altura proporcional. Para este caso, utiliza o esquema HTML sem qualquer modificação.</p>
@@ -284,90 +330,9 @@
 
                 <h3>Altura Fixa</h3>
 
-                <!--
-                START :: SLIDER
-                TAMANHO PROPORTCIONAL MINIATURA
-                -->
-                <div data-slider='slider3' class='jcemslider' height>
-                  <input type='radio' id='slider3_img1' class='sldtxt' name='slider3' ndc='0' checked />
-                  <input type='radio' id='slider3_img2' class='sldtxt' name='slider3' ndc='1' />
-                  <input type='radio' id='slider3_img3' class='sldtxt' name='slider3' ndc='2' />
-                  <input type='radio' id='slider3_img4' class='sldtxt' name='slider3' ndc='3' />
-
-                  <div class='mgs' style='height: 240px !important;'>
-                    <a class='qdr' ndc='0'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 1</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='1'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 2</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='2'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 3</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                    <a class='qdr' ndc='3'>
-                      <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                      <div class='cnt'>
-                        <h3 class='ttl'>My Photo 4</h3>
-                        <div class='text'>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                        </div>
-
-                      </div>
-                    </a>
-
-                  </div>
-
-                  <nav class='pvnt'>
-                    <label for='slider3_img1' class='pvnt fas' ndc='0'></label>
-                    <label for='slider3_img2' class='pvnt fas' ndc='1'></label>
-                    <label for='slider3_img3' class='pvnt fas' ndc='2'></label>
-                    <label for='slider3_img4' class='pvnt fas' ndc='3'></label>
-                  </nav>
-
-                  <nav class='seletor'>
-                    <label for='slider3_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                    </label>
-                    <label for='slider3_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                    </label>
-                    <label for='slider3_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                    </label>
-                    <label for='slider3_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                      <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                    </label>
-                  </nav>
-                </div>
-                <!-- END :: SLIDER -->
+                <?php
+                echo jcemslider([$items], [], ['height' => ''], '240px');
+                ?>
 
                 <br />
                 <p>Como já especificado, neste modelo, a imagem tem altura fixada e a sua largura é proporcionalmente mantida. Ideal para imagens largas, como a <a href='https://blog.jeancarloem.com/devaneios' target='blank'>desta página</a>.</p>
@@ -392,91 +357,9 @@
 
 
                   <h3>Cover</h3>
-                  <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-                  <div data-slider='slider5' class='jcemslider cover' height>
-                    <input type='radio' id='slider5_img1' class='sldtxt' name='slider5' ndc='0' checked />
-                    <input type='radio' id='slider5_img2' class='sldtxt' name='slider5' ndc='1' />
-                    <input type='radio' id='slider5_img3' class='sldtxt' name='slider5' ndc='2' />
-                    <input type='radio' id='slider5_img4' class='sldtxt' name='slider5' ndc='3' />
-
-                    <div class='mgs' style='height: 240px !important;'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider5_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider5_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider5_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider5_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider5_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider5_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider5_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider5_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
-                  <!-- END :: SLIDER -->
-
+                <?php
+                echo jcemslider([$items], ['cover'], ['height' => ''], '240px');
+                ?>
 <br />
                   <p>Neste tipo de slide, as imagens são mostradas em seu tamanho proporcional, porem ocupando todo o quadro, centralizada vertical e horizontalmente. A única diferença de configuração em relação ao modo <b>fitheight</b> é que o <i>div</i> principal deve possuir a classe <b>cover</b>. Todo o resto é igual, inclusive a definição do tamanho na propriedade <b>style</b>:</p><br />
 
@@ -500,90 +383,9 @@
 
                   <h3>Padrão com Miniatura</h3>
                   <br />
-                  <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-                  <div data-slider='slider2' class='jcemslider miniatura'>
-                    <input type='radio' id='slider2_img1' class='sldtxt' name='slider2' ndc='0' checked />
-                    <input type='radio' id='slider2_img2' class='sldtxt' name='slider2' ndc='1' />
-                    <input type='radio' id='slider2_img3' class='sldtxt' name='slider2' ndc='2' />
-                    <input type='radio' id='slider2_img4' class='sldtxt' name='slider2' ndc='3' />
-
-                    <div class='mgs'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider2_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider2_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider2_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider2_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider2_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider2_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider2_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider2_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
-                  <!-- END :: SLIDER -->
+                <?php
+                echo jcemslider([$items], ['miniatura']);
+                ?>
 
                   <br />
                   <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span>  <span style="color: #0000CC">js=</span><span style="background-color: #fff0f0">&#39;true&#39;</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider2&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider miniatura&#39;</span><span style="color: #007700">&gt;</span>
@@ -597,86 +399,9 @@
                   START :: SLIDER
                   TAMANHO PROPORTCIONAL MINIATURA
                   -->
-                  <div data-slider='slider4' class='jcemslider miniatura' height>
-                    <input type='radio' id='slider4_img1' class='sldtxt' name='slider4' ndc='0' checked />
-                    <input type='radio' id='slider4_img2' class='sldtxt' name='slider4' ndc='1' />
-                    <input type='radio' id='slider4_img3' class='sldtxt' name='slider4' ndc='2' />
-                    <input type='radio' id='slider4_img4' class='sldtxt' name='slider4' ndc='3' />
-
-                    <div class='mgs' style='height: 240px !important;'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider4_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider4_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider4_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider4_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider4_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider4_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider4_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider4_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
-                  <!-- END :: SLIDER -->
+                <?php
+                echo jcemslider([$items], ['miniatura'], ['height' => ''], '240px');
+                ?>
 
 <br />
 
@@ -691,90 +416,9 @@
 
                   <h3>Cover com Miniatura</h3>
                   <br />
-                  <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-                  <div data-slider='slider6' class='jcemslider miniatura cover' height>
-                    <input type='radio' id='slider6_img1' class='sldtxt' name='slider6' ndc='0' checked />
-                    <input type='radio' id='slider6_img2' class='sldtxt' name='slider6' ndc='1' />
-                    <input type='radio' id='slider6_img3' class='sldtxt' name='slider6' ndc='2' />
-                    <input type='radio' id='slider6_img4' class='sldtxt' name='slider6' ndc='3' />
-
-                    <div class='mgs' style='height: 240px !important;'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider6_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider6_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider6_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider6_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider6_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider6_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider6_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider6_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
-                  <!-- END :: SLIDER -->
+                <?php
+                echo jcemslider([$items], ['miniatura', 'cover'], ['height' => ''], '240px');
+                ?>
 
                   <br />
 
@@ -785,89 +429,10 @@
 
 
                   <h2>Efeito Fade</h2>
-                  <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-                  <div data-slider='slider7' class='jcemslider cover fade' height>
-                    <input type='radio' id='slider7_img1' class='sldtxt' name='slider7' ndc='0' checked />
-                    <input type='radio' id='slider7_img2' class='sldtxt' name='slider7' ndc='1' />
-                    <input type='radio' id='slider7_img3' class='sldtxt' name='slider7' ndc='2' />
-                    <input type='radio' id='slider7_img4' class='sldtxt' name='slider7' ndc='3' />
+                <?php
+                echo jcemslider([$items], ['cover', 'fade'], ['height' => ''], '240px');
+                ?>
 
-                    <div class='mgs' style='height: 240px !important;'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider7_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider7_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider7_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider7_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider7_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider7_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider7_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider7_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
 
                   <br />
 <p>Em qualquer dos modos acima, é possível optar pela transição fade, bastando para isso, adicionar a classse <b>fade</b> ao <i>div</i> principal, como se segue:</p>
@@ -877,92 +442,53 @@
 </pre></td></tr></table></div>
 
 <br />
+                  <h2>Posição da Navegação</h2>
+                <?php
+                echo jcemslider([$items], ['cover', 'topnav'], ["height" => ''], '240px');
+                ?>
+
+                  <br />
+<p>É possível exibir as bolinhas de navegação na parte superior adicionando a classe <b>topnav</b> ao <i>div</i> principal:</p>
+<br />
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6a&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider cover topnav&#39;</span> <span style="color: #0000CC">height</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
+
+
+<br />
+
+
+                  <h2>Miniaturas Laterais</h2>
+                <?php
+                echo jcemslider([$items], ['miniatura', 'cover', 'topnav', 'leftnav'], ["height" => ''], null, '240px');
+                ?>
+
+<br />
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6b&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider cover leftnav&#39;</span> <span style="color: #0000CC">height</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
+                  <br />
+
+
+                <?php
+                echo jcemslider([$items], ['miniatura', 'cover', 'topnav', 'rightnav'], ["height" => ''], null, '240px');
+                ?>
+
+                  <br />
+<p>É possível exibir as miniaturas lateralmente, basta aplicar a classe <b>leftnav</b> ou <b>righttnav</b> ao <i>div</i> principal:</p>
+<br />
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6c&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider miniatura cover rightnav&#39;</span> <span style="color: #0000CC">height</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;height: 240px !important;&#39;</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
+<br />
+<p><strong>Importante</strong>: Neste caso, a subpropriedade <strong>height</strong> de <i>style</i> NÃO deve ser colocada no elemento <i>.mgs</i>, mas no elemento principal <i>div</i>.</p>
+
+<br />
 
 
                   <h2>Automatização com Javascript</h2>
-                  <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-                  <div js='true' data-slider='slider8' class='jcemslider cover' height>
-                    <input type='radio' id='slider8_img1' class='sldtxt' name='slider8' ndc='0' checked />
-                    <input type='radio' id='slider8_img2' class='sldtxt' name='slider8' ndc='1' />
-                    <input type='radio' id='slider8_img3' class='sldtxt' name='slider8' ndc='2' />
-                    <input type='radio' id='slider8_img4' class='sldtxt' name='slider8' ndc='3' />
-
-                    <div class='mgs' style='height: 240px !important;'>
-                      <a class='qdr' ndc='0'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 1</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='1'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 2</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='2'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 3</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                      <a class='qdr' ndc='3'>
-                        <div class='mgi' style='background-image: url("assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg") !important;'>
-                          <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' /></div>
-                        <div class='cnt'>
-                          <h3 class='ttl'>My Photo 4</h3>
-                          <div class='text'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-                          </div>
-
-                        </div>
-                      </a>
-
-                    </div>
-
-                    <nav class='pvnt'>
-                      <label for='slider8_img1' class='pvnt fas' ndc='0'></label>
-                      <label for='slider8_img2' class='pvnt fas' ndc='1'></label>
-                      <label for='slider8_img3' class='pvnt fas' ndc='2'></label>
-                      <label for='slider8_img4' class='pvnt fas' ndc='3'></label>
-                    </nav>
-
-                    <nav class='seletor'>
-                      <label for='slider8_img1' ndc='0' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg' />
-                      </label>
-                      <label for='slider8_img2' ndc='1' style="background-image: url('assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg' />
-                      </label>
-                      <label for='slider8_img3' ndc='2' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg' />
-                      </label>
-                      <label for='slider8_img4' ndc='3' style="background-image: url('assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg');">
-                        <img src='assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg' />
-                      </label>
-                    </nav>
-                  </div>
+                <?php
+                echo jcemslider([$items], ['cover'], ['js' => 'true', "height" => ''], '240px');
+                ?>
 
                   <br />
 <p>Junto com o pacote é incluso um pequeno e puro javascript, que permite a passagem automática das imagens. Para habilitar basta incluir o javascript e adicionar a propriedade <b>js</b> ao <i>div</i> principal, como se segue:</p>

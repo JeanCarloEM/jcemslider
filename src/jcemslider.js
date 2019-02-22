@@ -1,11 +1,12 @@
 (function (_, w, $) {
-  _.jcemslider = function (els, tms) {
-    if ((Array.isArray(els)) || (typeof els === 'object')) {
+  _.jcemslider = function (els, tms) {    
+    console.log(els);
+    if ((Array.isArray(els)) || (typeof els === 'object')) {      
       for (var i = 0; i < els.length; i++) {
         if ((els[i].classList.contains('jcemslider')) && (els[i].hasAttribute('data-slider'))) {
           tms = (isFinite(tms) && !isNaN(tms) && tms > 100) ? tms : els[i].getAttribute('js');
           tms = (isFinite(tms) && !isNaN(tms) && tms > 100) ? tms : 5000;
-
+          
           if (els[i].hasAttribute('data-jcemslider-started')) {
             return;
           }
@@ -21,23 +22,24 @@
             this.removeAttribute('mouseobre');
           });
 
-          w.setInterval(function () {
+          w.setInterval(function () {            
             if (this.hasAttribute('stoplider')) {
               return;
             }
-
-            var ips = $("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio]");
-
+            
+            var ips = $("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio][ndc]");
+            
             if (!ips) {
               return;
-            }
+            }            
 
             for (var j = 0; j < ips.length; j++) {
               if (ips[j].checked && !this.hasAttribute('mouseobre')) {
                 ips[j].checked = false;
-                var number = $("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio]").length;
+                var number = $("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio][ndc]").length;
                 number = ((Math.abs(ips[j].getAttribute('ndc')) + 1) >= number) ? 0 : Math.abs(ips[j].getAttribute('ndc')) + 1;
 
+                consolelog("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio][ndc='" + number + "']");
                 var next = $("[data-slider='" + this.getAttribute('data-slider') + "'] > input[type=radio][ndc='" + number + "']")[0];
 
                 if (next) {
@@ -54,6 +56,6 @@
   };
 
   document.addEventListener('DOMContentLoaded', function () {
-    w.setTimeout("jcemslider(document.querySelectorAll('div.jcemslider[data-slider][js]'));", 100);
+    //w.setTimeout("jcemslider(document.querySelectorAll('div.jcemslider[data-slider][js]'));", 150);
   });
 })(this, window, document.querySelectorAll.bind(document));

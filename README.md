@@ -10,7 +10,7 @@ JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos
 - Exibição de imagem em 3 modos diferentes (padrão, fitheight e cover);
 - Exibição com ou sem miniaturas;
 - Habilitado para até 100 imagens;
-- Transição automática com javascrip puro (opicional);
+- Transição automática com javascript puro (opicional);
 - Opensource sob licença [Mozilla Public License](https://choosealicense.com/licenses/mpl-2.0/).
   
 ## Uso e DEMO
