@@ -3,13 +3,18 @@ $text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean hendrer
 
 $items = [
     [
+        "url" => 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg',
+        "title" => 'My Photo 2',
+        "content_html" => $text
+    ],
+    [
         "url" => 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg',
         "title" => 'My Photo 1',
         "content_html" => $text
     ],
     [
-        "url" => 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg',
-        "title" => 'My Photo 2',
+        "url" => 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg',
+        "title" => 'My Photo 4',
         "content_html" => $text
     ],
     [
@@ -17,11 +22,6 @@ $items = [
         "title" => 'My Photo 3',
         "content_html" => $text
     ],
-    [
-        "url" => 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg',
-        "title" => 'My Photo 4',
-        "content_html" => $text
-    ]
 ];
 
 /*
@@ -95,7 +95,7 @@ EOF;
 
  <!-- START :: SLIDER -->
 
-<div data-slider='slider1' class='jcemslider $cls' $props$div_size>
+<div data-slider='$slider' class='jcemslider $cls' $props$div_size>
 
   <!-- START :: INPUTS -->
   $inputs
@@ -126,6 +126,7 @@ EOF;
 
 EOF;
 }
+$_descri = 'JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos adicionais em puro javascript.';
 ?><!DOCTYPE html>
 <html lang="pt-BR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" itemscope itemtype="http://schema.org/Blog">
   <head>
@@ -133,7 +134,7 @@ EOF;
     <!-- Facebook / OG -->
     <meta property='og:title' content='JCEM Slider' />
     <meta property='og:url' content='https://blog.jeancarloem.com/jcemslider/' />
-    <meta property='og:description' content='JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos adicionais em puro javascript.' />
+    <meta property='og:description' content='<?php echo $_descri; ?>' />
     <meta property='og:site_name ' content='Jean Carlo EM' />
     <meta property='og:image' content='assets/img/banner.png' />
     <meta property='og:type' content='article' />
@@ -145,7 +146,7 @@ EOF;
     <meta itemprop='name' content='JCEM Slider' />
     <meta itemprop='headline' content='JCEM Slider' />
     <meta itemprop='url' content='https://lab.jeancarloem.com/jcemslider/' />
-    <meta itemprop='description' content='JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos adicionais em puro javascript.' />
+    <meta itemprop='description' content='<?php echo $_descri; ?>' />
     <meta itemprop='image' content='assets/img/banner.png'/>
     <meta itemprop='datePublished' content='2014-04-16T00:55:57+00:00' />
     <meta itemprop='dateModified' content='2019-02-10T23:18:21+00:00' />
@@ -154,10 +155,10 @@ EOF;
     <meta name = 'twitter:title' content='JCEM Slider' />
     <meta name = 'twitter:url' content='https://blog.jeancarloem.com/jcemslider/' />
     <meta name = 'twitter:image' content='assets/img/banner.png' />
-    <meta name = 'twitter:description' content='JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos adicionais em puro javascript.' />
+    <meta name = 'twitter:description' content='<?php echo $_descri; ?>' />
     <meta name = 'twitter:card' content='summary_large_image' />
     <!-- SEO -->
-    <meta name = 'description' content='JCEM-Slider é um slider responsivo feito em puro CSS e opensource, com recursos adicionais em puro javascript.' />
+    <meta name = 'description' content='<?php echo $_descri; ?>' />
     <meta name = 'publisher' content='' />
     <meta name='author' content='' />
     <link rel='canonical' href='https://blog.jeancarloem.com/jcemslider/' />
@@ -183,7 +184,44 @@ EOF;
     <title>JCEM Slider | Jean Carlo EM</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- RICH SNIPPETYS : START -->
 
+    <?php
+    $ld = [];
+
+    $ld[] = [
+        "@context" => "https://schema.org",
+        "@type" => "SoftwareApplication",
+        "name" => "JCEMSlider",
+        "operatingSystem" => "ALL",
+        "image" => "https://" . $_SERVER['HTTP_HOST'] . "/jcemslider/favicon/banner.png",
+        "description" => $_descri,
+        "applicationCategory" => "https://schema.org/DeveloperApplication",
+        "aggregateRating" => [
+            "@type" => "AggregateRating",
+            "ratingValue" => 4.4,
+            "ratingCount" => 6
+        ],
+        "offers" => [
+            "@type" => "Offer",
+            "price" => "0.00",
+            "priceCurrency" => "BRL"
+        ]
+    ];
+
+    $ld[] = [
+        "@context" => "https://schema.org",
+        "@type" => "WebSite",
+        "url" => "https://lab.jeancarloem.com/jcemslider/",
+        "image" => "https://" . $_SERVER['HTTP_HOST'] . "/jcemslider/favicon/banner.png",
+        "description" => "$_descri",
+    ];
+    foreach ($ld as $value) {
+      echo "\n\t" . '<script type="application/ld+json">' . \json_encode($value, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK) . '</script>';
+    }
+    ?>
+
+    <!-- RICH SNIPPETYS : END -->
     <!-- CSS PRINCIPAL -->
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css' crossorigin='anonymous' />
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
@@ -261,7 +299,7 @@ EOF;
       <header class="first fixed">
         <div class="colunabarra icon">
 
-          <a class='nosimbol' href="https://blog.jeancarloem.com"><img src="http://jeancarloem.com/favicon/logo.png" alt="Logo" class="mainlogo" style='height: 5em; margin-top: -1em; max-height: initial !important;' /></a>
+          <a class='nosimbol' href="https://blog.jeancarloem.com"><img src="https://www.jeancarloem.com/favicon/logo-animado2.gif" alt="Logo" class="mainlogo" style='height: 5em; margin-top: -1em; max-height: initial !important;' /></a>
 
           <div class='ico menu'><div class='fa'></div></div>
           <div class="ico follow"><div class="fas fa-caret-down before"></div></div>
@@ -482,6 +520,41 @@ EOF;
 <br />
 <p><strong>Importante</strong>: Neste caso, a subpropriedade <strong>height</strong> de <i>style</i> NÃO deve ser colocada no elemento <i>.mgs</i>, mas no elemento principal <i>div</i>.</p>
 
+<br />
+
+<br />
+
+
+                  <h2>Texto Lateral com ou sem Miniaturas</h2>
+                <?php
+                echo jcemslider([$items], ['righttext', 'cover'], ["height" => ''], null, '240px');
+                ?>
+
+<br />
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6b&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider righttext cover&#39;</span> <span style="color: #0000CC">height</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
+                  <br />
+
+
+                <?php
+                echo jcemslider([$items], ['lefttext', 'cover', 'topnav'], ["height" => ''], null, '240px');
+                ?>
+
+                  <br />
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6c&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider lefttext topnav cover&#39;</span> <span style="color: #0000CC">height</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;height: 240px !important;&#39;</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
+
+<br />
+                <?php
+                echo jcemslider([$items], ['miniatura', 'lefttext', 'cover', 'topnav'], ["height" => ''], '240px');
+                ?>
+
+                  <br />
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider6c&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider miniatura cover rightnav&#39;</span> <span style="color: #0000CC">height</span><span style="color: #007700">&gt;</span>
+</pre></td></tr></table></div>
 <br />
 
 

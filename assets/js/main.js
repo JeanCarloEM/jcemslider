@@ -6,12 +6,12 @@
 
   w.guid = function () {
     function s4() {
-      return  w.rand()
-              .toString(16)
-              .substring(1);
+      return w.rand()
+        .toString(16)
+        .substring(1);
     }
     return String.fromCharCode((w.rand(1) === 1) ? 65 : 97) + w.rand(26) + s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
+      s4() + '-' + s4() + s4() + s4();
   };
 
   Node.prototype.getId = function () {
@@ -211,10 +211,59 @@
     }
   };
 
+  w.makeiItems = (items) => {
+    jcemSliderMaker($("div.slider_default")[0], items);
+    jcemSliderMaker($("div.slider_fixed_height")[0], items, [], { 'height': '' }, '240px');
+    jcemSliderMaker($("div.slider_cover")[0], items, ['cover'], { 'height': '' }, '240px');
+
+    jcemSliderMaker($("div.slider_miniatura")[0], items, ['miniatura']);
+    jcemSliderMaker($("div.slider_fixed_height_miniatura")[0], items, ['miniatura'], { 'height': '' }, '240px');
+    jcemSliderMaker($("div.slider_cover_miniatura")[0], items, ['miniatura', 'cover'], { 'height': '' }, '240px');
+
+    jcemSliderMaker($("div.slider_cover_fade")[0], items, ['cover', 'fade'], { 'height': '' }, '240px');
+    jcemSliderMaker($("div.slider_cover_topnav")[0], items, ['cover', 'topnav'], { 'height': '' }, '240px');
+
+    jcemSliderMaker($("div.slider_cover_mini_left")[0], items, ['cover', 'topnav', 'miniatura', 'leftnav'], { 'height': '' }, null, '240px');
+    jcemSliderMaker($("div.slider_cover_mini_right")[0], items, ['cover', 'topnav', 'miniatura', 'rightnav'], { 'height': '' }, null, '240px');
+
+    jcemSliderMaker($("div.slider_cover_righttext")[0], items, ['righttext', 'cover'], { 'height': '' }, null, '240px');
+    jcemSliderMaker($("div.slider_cover_lefttext")[0], items, ['lefttext', 'cover', 'topnav'], { 'height': '' }, null, '240px');
+
+    jcemSliderMaker($("div.slider_cover_lefttext2")[0], items, ['miniatura', 'lefttext', 'cover', 'topnav'], { 'height': '' }, '240px');
+
+    jcemSliderMaker($("div.slider_cover_auto")[0], items, ['cover'], { "js" : true, "height" : '' }, '240px');
+  };
+
   $(document).ready(function ($) {
     w.masterheaderFEITO = false;
     w.downmenuFEITO = false;
     w.primarymenuFEITO = false;
+
+    w.makeiItems(function () {
+      text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean hendrerit condimentum odio et porttitor. Integer congue arcu sed sagittis sodales. Praesent nec tincidunt velit. Ut finibus pellentesque velit, quis eleifend nisi venenatis et. Praesent non magna a tellus vehicula condimentum vel non sem. Sed non eleifend massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tellus tortor, facilisis quis mauris vel, facilisis bibendum justo. Aenean quis malesuada nibh. ";
+      return [
+        {
+          "url": 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg',
+          "title": 'My Photo 1',
+          "descri": "This text 1. " + text
+        },
+        {
+          "url": 'assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg',
+          "title": "My Photo 2",
+          "descri": "This text 2. " + text
+        },
+        {
+          "url": 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg',
+          "title": 'My Photo 3',
+          "descri": "This text 3. " + text
+        },
+        {
+          "url": 'assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg',
+          "title": "My Photo 4",
+          "descri": "This text 4. " + text
+        },
+      ];
+    }());
 
     $(w).resize(function () {
       if (!w.masterheaderFEITO) {
@@ -279,12 +328,12 @@
         $('.body > header').addClass('imagem_macro');
         $('.body > nav').addClass('imagem_macro');
       }
-      
+
       if ($('.body.iasd').length > 0) {
         $('.body > header').addClass('iasdbar');
         $('.body > nav').addClass('iasdbar');
         $('.body > * ul.social').addClass('iasdbar');
-      }      
+      }
 
       w.setTimeout('jQuery(window).resize();', 550);
     }, 700);
