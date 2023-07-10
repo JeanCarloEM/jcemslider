@@ -212,26 +212,114 @@
   };
 
   w.makeiItems = (items) => {
-    jcemSliderMaker($("div.slider_default")[0], items);
-    jcemSliderMaker($("div.slider_fixed_height")[0], items, [], { 'height': '' }, '240px');
-    jcemSliderMaker($("div.slider_cover")[0], items, ['cover'], { 'height': '' }, '240px');
+    let itms = [
+      jcemSliderMaker($("div.show_sld_default")[0], items),
+      jcemSliderMaker($("div.show_sld_fixed_height")[0], items, [], { 'height': '' }, '240px'),
+      jcemSliderMaker($("div.show_sld_cover")[0], items, ['cover'], { 'height': '' }, '240px'),
 
-    jcemSliderMaker($("div.slider_miniatura")[0], items, ['miniatura']);
-    jcemSliderMaker($("div.slider_fixed_height_miniatura")[0], items, ['miniatura'], { 'height': '' }, '240px');
-    jcemSliderMaker($("div.slider_cover_miniatura")[0], items, ['miniatura', 'cover'], { 'height': '' }, '240px');
+      jcemSliderMaker($("div.show_sld_miniatura")[0], items, ['miniatura']),
+      jcemSliderMaker($("div.show_sld_fixed_height_miniatura")[0], items, ['miniatura'], { 'height': '' }, '240px'),
+      jcemSliderMaker($("div.show_sld_cover_miniatura")[0], items, ['cover', 'miniatura'], { 'height': '' }, '240px'),
 
-    jcemSliderMaker($("div.slider_cover_fade")[0], items, ['cover', 'fade'], { 'height': '' }, '240px');
-    jcemSliderMaker($("div.slider_cover_topnav")[0], items, ['cover', 'topnav'], { 'height': '' }, '240px');
+      jcemSliderMaker($("div.show_sld_cover_fade")[0], items, ['cover', 'fade'], { 'height': '' }, '240px'),
+      jcemSliderMaker($("div.show_sld_cover_topnav")[0], items, ['cover', 'topnav'], { 'height': '' }, '240px'),
 
-    jcemSliderMaker($("div.slider_cover_mini_left")[0], items, ['cover', 'topnav', 'miniatura', 'leftnav'], { 'height': '' }, null, '240px');
-    jcemSliderMaker($("div.slider_cover_mini_right")[0], items, ['cover', 'topnav', 'miniatura', 'rightnav'], { 'height': '' }, null, '240px');
+      jcemSliderMaker($("div.show_sld_cover_mini_left")[0], items, ['cover', 'topnav', 'miniatura', 'leftnav'], { 'height': '' }, null, '240px'),
+      jcemSliderMaker($("div.show_sld_cover_mini_right")[0], items, ['cover', 'topnav', 'miniatura', 'rightnav'], { 'height': '' }, null, '240px'),
 
-    jcemSliderMaker($("div.slider_cover_righttext")[0], items, ['righttext', 'cover'], { 'height': '' }, null, '240px');
-    jcemSliderMaker($("div.slider_cover_lefttext")[0], items, ['lefttext', 'cover', 'topnav'], { 'height': '' }, null, '240px');
+      jcemSliderMaker($("div.show_sld_cover_righttext")[0], items, ['righttext', 'cover'], { 'height': '' }, null, '240px'),
+      jcemSliderMaker($("div.show_sld_cover_lefttext")[0], items, ['lefttext', 'cover', 'topnav'], { 'height': '' }, null, '240px'),
 
-    jcemSliderMaker($("div.slider_cover_lefttext2")[0], items, ['miniatura', 'lefttext', 'cover', 'topnav'], { 'height': '' }, '240px');
+      jcemSliderMaker($("div.show_sld_cover_lefttext2")[0], items, ['miniatura', 'lefttext', 'cover', 'topnav'], { 'height': '' }, '240px'),
 
-    jcemSliderMaker($("div.slider_cover_auto")[0], items, ['cover'], { "js" : true, "height" : '' }, '240px');
+      jcemSliderMaker($("div.show_sld_cover_auto")[0], items, ['cover'], { "js": true, "height": '' }, '240px'),
+    ];
+
+    w.setTimeout(() => {
+      var zero = false;
+
+      for (let i = 0; i < itms.length; i++) {
+        let id = '#' + itms[i].id + " + " + "pre > code";
+        let otml = itms[i].outerHTML;
+
+        itms[i] = otml
+          .replace(/\<([^>\/"']+) ndc=("|')(\d)("|') (for|id)=("|')[^"']+("|')/gi, function (a, b, c, d, e, f) {
+            return "<" + b + " ndc='" + d + "' " + f + "='input_id_" + d + "'";
+          })
+          .replace(otml.match(/data\-slider=("|')([^"']+)("|')/i)[2], 'jcemlider_uid')
+          .replace(new RegExp("id=(\"|')" + itms[i].id + "(\"|')"), '')
+          .replace(/name=("|')jcemslider_i[^"'>]+("|')/ig, 'name="jcemslider_uid"');
+
+        $(id).html(
+          (() => {
+            itms[i] = itms[i]
+              .replace(/<img([^<]+)<\/div/gi, function (a, b, c) {
+                return "<img" + b + " />\n\t\t\t&lt;/div";
+              })
+              .replace(/\.\s*<\/div>\s*<\/div>\s*<\/a>(\s*<\/div>)?/gi, function (a, b) {
+                return ".\n\t\t\t\t&lt;/div>\n\t\t\t&lt;/div>\n\t\t&lt;/a>" + (b ? "\n\t&lt;/div>" : "");
+              })
+              .replace(/\</ig, "\n<")
+              .replace(/^<label/gmi, "\t\t<label")
+              .replace(/^<input /gmi, "\t<input ")
+              .replace(/^<div class=("|')mgs("|')/gmi, "\t<div class='mgs'")
+              .replace(/^<a ndc=/gmi, "\t\t<a ndc=")
+              .replace(/^<div class=("|')mgi("|')/gmi, "\t\t\t<div class='mgi'")
+              .replace(/^<img/gmi, "\t\t\t\t<img")
+              .replace(/^<div class=("|')cnt("|')/gmi, "\t\t\t<div class='cnt'")
+              .replace(/^<div class=("|')ttl("|')/gmi, "\t\t\t\t<div class='ttl'")
+              .replace(/^<\/div>\s*<div class=("|')text("|')/gmi, "\n\t\t\t\t&lt;/div>\n\t\t\t\t&lt;div class='text'")
+              .replace(/^<nav/gmi, "\t<nav")
+              .replace(/^<\/nav/gmi, "\t</nav")
+              .replace(/^<\/label/gmi, "\t\t</label");
+
+
+            if (i > 0 || !zero) {
+              let tmp = (itms[i] + "")
+                .replace(/((<input[^><]*>[\s\n]*)+)/i, "...INPUTs...\n\t")
+                .replace(/<a .+<nav class=("|')pvnt/is, "...ITEMs...\n\t</div>\n\t<nav class='pvnt'")
+                .replace(/<label .+<nav class=("|')seletor/is, "...NAVIGATOR...\n\t</nav>\n\t<nav class='seletor'")
+                .replace(/<label .+<\/nav/is, "...MINIATURES...\n\t</nav");
+
+              if (!zero && i === 0) {
+                zero = tmp
+                  .replace(/\</ig, "&lt;")
+                  .replace(/\>/ig, "&gt;")
+                  .replace(/\n\n/ig, "\n")
+                  .split("\n");
+              }
+
+              if (i > 0) {
+                itms[i] = tmp;
+              }
+            }
+
+            itms[i] = itms[i]
+              .replace(/\</ig, "&lt;")
+              .replace(/\>/ig, "&gt;")
+              .replace(/\n\n/ig, "\n")
+              .split("\n");
+
+            let r = [];
+
+            if (i > 0) {
+              for (let j = 0; j < itms[i].length; j++) {
+                itms[i][j] = itms[i][j].replace(/show_sld_[^"'\s]+ ?/ig, '');
+                if ((itms[i][j] != zero[j]) || (itms[i][j].match(/\.\.\./))) {
+                  r.push(itms[i][j]);
+                }
+              }
+            } else {
+              r = itms[i];
+            }
+
+            return r.join("\n");
+          })()
+        );
+      }
+
+      hljs.highlightAll();
+    }, 50);
   };
 
   $(document).ready(function ($) {

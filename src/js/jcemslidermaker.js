@@ -16,10 +16,10 @@ String.prototype.parseProps = function (items, ukn) {
 };
 
 function jcemSliderMaker(obj, items, clss, args, size, div_size) {
-  let mitem = '<a class="qdr" ndc="${index}"><div class="mgi" style="background-image: url(\'${url}\') !important;"><img src="${url}" /></div><div class="cnt"><div class="ttl">${title}</div><div class="text">${descri}</div></div></a>';
-  let miitem = '<input type="radio" id="${i_id}" class="sldtxt" name="${slider_id}" ndc="${index}"${checked}/>';
-  let navp = " <label for='${i_id}' class='pvnt fas' ndc='${index}'></label>";
-  let nav_mini = "<label for='${i_id}' ndc='0' style='background-image: url(\'${url}\');'><img src='${url}' /></label>";
+  let mitem = '<a ndc="${index}" class="qdr"><div class="mgi" style="background-image: url(\'${url}\') !important;"><img src="${url}" /></div><div class="cnt"><div class="ttl">${title}</div><div class="text">${descri}</div></div></a>';
+  let miitem = '<input ndc="${index}" id="${i_id}" type="radio" class="sldtxt" name="${slider_id}"${checked}/>';
+  let navp = " <label ndc='${index}' for='${i_id}' class='pvnt fas'></label>";
+  let nav_mini = "<label ndc='${index}' for='${i_id}' style='background-image: url(\'${url}\');'><img src='${url}' /></label>";
 
   let cls = (Array.isArray(clss) ? clss : []).join(' ');
 
@@ -41,16 +41,18 @@ function jcemSliderMaker(obj, items, clss, args, size, div_size) {
   }
 
   let uid = () => {
-    return 'ixxxxxxxxxxxx4xxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    return ('ixxxxxxxxxxxx4xxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
-    });
+    })).substr(0, 10);
   };
 
   let jid = "jcemslider_" + uid();
 
   obj.setAttribute("data-slider", jid);
   obj.className += " jcemslider " + cls;
+
+  obj.id = obj.id ? obj.id : uid();
 
   var hitem = '';
   var hiitem = '';
@@ -82,4 +84,5 @@ function jcemSliderMaker(obj, items, clss, args, size, div_size) {
   }
 
   obj.innerHTML = hiitem + "<div class='mgs'" + size + ">" + hitem + "</div><nav class='pvnt'>" + lbls + "</nav><nav class='seletor'>" + hnav_mini + "</nav>";
+  return obj;
 }
