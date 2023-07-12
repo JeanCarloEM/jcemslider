@@ -1,9 +1,9 @@
 # [![|Solid](https://jcemslider.jcem.pro/assets/favicon/32x32.png)](https://jscemslider.jcem.pro) JCEM-Slider
 
 JCEM-Slider is a responsive slider made in pure CSS and opensource, with additional features in pure javascript, without dependencies.
-Check the online documentation and **[DEMONSTRAÇÃO](http://jcemslider.jcem.pro)**.
+Check the online documentation and **[DEMO](http://jcemslider.jcem.pro)**.
 
-## Recursos
+## Features
 
 - Pure CSS (Sass);
 - Rolling transition animation;
@@ -15,7 +15,7 @@ Check the online documentation and **[DEMONSTRAÇÃO](http://jcemslider.jcem.pro
 - Dynamic creation with optional pure javascript (client side);
 - Open source under license [Mozilla Public License](https://choosealicense.com/licenses/mpl-2.0/).
 
-## Uso e DEMO
+## Usage
 
 Include the css (engine):
 

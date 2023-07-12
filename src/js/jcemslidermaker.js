@@ -81,7 +81,6 @@ function jcemSliderMaker(obj, items, clss, args, size, div_size) {
     hiitem += miitem.parseProps(dt);
     lbls += navp.parseProps(dt);
     hnav_mini += nav_mini.parseProps(dt);
-    console.log(hnav_mini);
   }
 
   obj.innerHTML = hiitem + "<div class='mgs'" + size + ">" + hitem + "</div><nav class='pvnt'>" + lbls + "</nav><nav class='seletor'>" + hnav_mini + "</nav>";

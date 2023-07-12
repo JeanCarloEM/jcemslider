@@ -250,8 +250,6 @@
           .replace(new RegExp("id=(\"|')" + itms[i].id + "(\"|')"), '')
           .replace(/name=("|')jcemslider_i[^"'>]+("|')/ig, 'name="jcemslider_uid"');
 
-        console.log(itms[i]);
-
         $(id).html(
           (() => {
             itms[i] = itms[i]
