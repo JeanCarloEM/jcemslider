@@ -250,6 +250,8 @@
           .replace(new RegExp("id=(\"|')" + itms[i].id + "(\"|')"), '')
           .replace(/name=("|')jcemslider_i[^"'>]+("|')/ig, 'name="jcemslider_uid"');
 
+        console.log(itms[i]);
+
         $(id).html(
           (() => {
             itms[i] = itms[i]
@@ -266,6 +268,10 @@
               .replace(/^<a ndc=/gmi, "\t\t<a ndc=")
               .replace(/^<div class=("|')mgi("|')/gmi, "\t\t\t<div class='mgi'")
               .replace(/^<img/gmi, "\t\t\t\t<img")
+              .replace(/src=("|')[^u][^"']+("|')/gmi, "src='uri/to/image'")
+              .replace(/\:\s*url\(("|')[^"'\)]+("|')/gmi, (a, b) => {
+                return ": url(" + b + "uri/to/image" + b;
+              })
               .replace(/^<div class=("|')cnt("|')/gmi, "\t\t\t<div class='cnt'")
               .replace(/^<div class=("|')ttl("|')/gmi, "\t\t\t\t<div class='ttl'")
               .replace(/^<\/div>\s*<div class=("|')text("|')/gmi, "\n\t\t\t\t&lt;/div>\n\t\t\t\t&lt;div class='text'")

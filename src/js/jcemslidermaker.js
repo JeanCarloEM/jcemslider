@@ -19,7 +19,7 @@ function jcemSliderMaker(obj, items, clss, args, size, div_size) {
   let mitem = '<a ndc="${index}" class="qdr"><div class="mgi" style="background-image: url(\'${url}\') !important;"><img src="${url}" /></div><div class="cnt"><div class="ttl">${title}</div><div class="text">${descri}</div></div></a>';
   let miitem = '<input ndc="${index}" id="${i_id}" type="radio" class="sldtxt" name="${slider_id}"${checked}/>';
   let navp = " <label ndc='${index}' for='${i_id}' class='pvnt fas'></label>";
-  let nav_mini = "<label ndc='${index}' for='${i_id}' style='background-image: url(\'${url}\');'><img src='${url}' /></label>";
+  let nav_mini = "<label ndc='${index}' for='${i_id}' style=\"background-image: url('${url}');\"><img src='${url}' /></label>";
 
   let cls = (Array.isArray(clss) ? clss : []).join(' ');
 
@@ -81,6 +81,7 @@ function jcemSliderMaker(obj, items, clss, args, size, div_size) {
     hiitem += miitem.parseProps(dt);
     lbls += navp.parseProps(dt);
     hnav_mini += nav_mini.parseProps(dt);
+    console.log(hnav_mini);
   }
 
   obj.innerHTML = hiitem + "<div class='mgs'" + size + ">" + hitem + "</div><nav class='pvnt'>" + lbls + "</nav><nav class='seletor'>" + hnav_mini + "</nav>";
