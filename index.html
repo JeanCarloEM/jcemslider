@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" itemscope itemtype="http://schema.org/Blog">
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" itemscope itemtype="http://schema.org/Blog">
 
 <head>
   <!-- START - Open Graph for Facebook, Google+ and Twitter Card Tags 2.2.4.2 -->
@@ -182,7 +182,8 @@
         <div class='ico topo'><a href="#topo" class="social fas fa-arrow-up topo"></a></div>
         <ul class="social">
           <li><a href='https://jeancarloem.com' target='_blank' class='social aboutme'><span>Aboutme</span></a></li>
-          <li><a href='https://github.com/JeanCarloEM/jcemslider' target='_blank' class='social github'><span>Github</span></a>
+          <li><a href='https://github.com/JeanCarloEM/jcemslider' target='_blank'
+              class='social github'><span>Github</span></a>
           </li>
         </ul>
       </div>
@@ -211,396 +212,221 @@
           <article class="post">
             <header></header>
             <!-- CONTEUDO -->
-            <div class="content"><br />
-              <strong>JCEM-Slider</strong> é um Slider Responsivo feito em puro CSS e opensource com recursos adicionais
-              em puro javascript!
-              <div class='get'><a class='get' href='https://github.com/JeanCarloEM/jcemslider' target='_blanck'>Baixe no
-                  github</a></div>
-              <br />
-              <h2>Recursos</h2>
+            <div class="content">
+              <strong>JCEM-Slider</strong> is a responsive slider made in pure CSS and opensource, with additional
+              features in pure javascript, without dependencies.
+              <div class='get'><a class='get' href='https://github.com/JeanCarloEM/jcemslider' target='_blanck'>Download
+                  at
+                  github</a></div>.
+
+              <h2>Features</h2>
               <ul style='margin-left: 2em;'>
-                <li>Puro CSS (Sass);</li>
-                <li>Animação de transição de rolamento;</li>
-                <li>Animação de transição fade;</li>
-                <li>Exibição de imagem em 3 modos diferentes <i>(padrão, fitheight e cover)</i>;</li>
-                <li>Exibição com ou sem miniaturas;</li>
-                <li>Habilitado para até 100 imagens;</li>
-                <li>Transição automática com javascript puro <i>(opicional)</i>;</li>
-                <li>Opensource sob licença <a href='https://choosealicense.com/licenses/mpl-2.0/'
+                <li>Pure CSS (Sass);</li>
+                <li>Rolling transition animation;</li>
+                <li>Fade transition animation;</li>
+                <li>Image display in 3 different modes <i>(standard, fitheight and cover)</i>;</li>
+                <li>Display with or without thumbnails;</li>
+                <li>Enabled for up to 100 images;</li>
+                <li>Auto transition with optional pure javascript (client-side);</li>
+                <li>Dynamic creation with optional pure javascript (client side);</li>
+                <li>Open source under license <a href='https://choosealicense.com/licenses/mpl-2.0/'
                     targe='_blanck'>Mozilla Public License</a>.</li>
               </ul>
-              <h2>Cheio</h2>
-              <p>A exibição "cheia", significa que as imagens ocuparão toda a largura ou toda a altura do slide. Existem
-                3 modos, sendos eles o <b>padrão</b>, em que a imagem é exibida na sua proporção original preenchendo a
-                largura total; o <b>fitheight</b> em que as imagens são exibidas numa altura predeterminada, e sua
-                largura é proporcional; e finalmente, o modo <b>cover</b> em que a imagem preenche todo o quadro,
-                centralizada verticalmente e horizontalmente. Em alguns casos, pode ser imperceptível a diferença entre
-                o cover e fitheight.</p>
-              <h3>Padrão</h3>
-              <!-- echo jcemslider([$items]); -->
+              <h2>Full</h2>
+              <p>"Full" view means that the images will take up the entire width or height of the slide. They exist
+                3 modes, being the <b>default</b>, in which the image is displayed in its original proportion filling
+                the
+                overall width; the <b>fitheight</b> in which the images are displayed at a predetermined height, and
+                their
+                the width is proportional; and finally the <b>cover</b> mode where the image fills the entire frame,
+                centered vertically and horizontally. In some cases, the difference between
+                the cover is five and eight.</p>
+
+              <h3>Standard</h3>
+              <p>In this mode the images are shown in their proportional size, width of 100% of the available space and
+                proportional height. For this case, it uses the HTML schema without any modifications. For an example,
+                see the full HTML example.</p>
               <div class="show_sld_default"></div>
-              <pre><code class="language-html"></code></pre>
-              <br />
-              <p>Neste modo as imagens são mostradas em seu tamanho proporcional, largura de 100% do espaço disponível e
-                altura proporcional. Para este caso, utiliza o esquema HTML sem qualquer modificação.</p>
-              <h3>Altura Fixa</h3>
-              <!--  echo jcemslider([$items], [], ['height' => ''], '15rem');-->
+
+              <h3>Fixed height</h3>
+
+              <p>As already specified, in this model, the image has a fixed height and its width is proportionally
+                sustained. Ideal for large images like <a href='https://blog.jeancarloem.com/devaneios'
+                  target='blank'>this page</a>.</p>
+              <p>To configure this way it is necessary to add the <b>height</b> property to the <i>div</i>
+                main, keeping it empty and in div.mgs assign the <i>height</i> sub-property of <b><i>style</i></b>
+                with the fixed height value,
+                following way.</p>
+
               <div class="show_sld_fixed_height"></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <p>Como já especificado, neste modelo, a imagem tem altura fixada e a sua largura é proporcionalmente
-                mantida. Ideal para imagens largas, como a <a href='https://blog.jeancarloem.com/devaneios'
-                  target='blank'>desta página</a>.</p>
-              <p>Para configurar desta maneira é necessário adicionar a propriedade <b>height</b> ao <i>div</i>
-                principal, mantendo-o vazio e no div.mgs atribuir a subpropriedade <i>height</i> de <b><i>style</i></b>
-                com o valor da altura fixa, da
-                seguinde maneira:</p>
-              <!-- HTML generated using hilite.me -->
-              <br /><br /><br />
+
               <h3>Cover</h3>
+
+              <p>In this type of slide, the images are shown in their proportional size, but taking up all the space.
+                frame, centered vertically and horizontally. The only configuration difference in relation to the mode
+                <b>fitheight</b> is that the main <i>div</i> must have the <b>cover</b> class. Everything else is the
+                same,
+                including the definition of the size in the <b>style</b> property.
+              </p>
+
               <div class='show_sld_cover'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <p>Neste tipo de slide, as imagens são mostradas em seu tamanho proporcional, porem ocupando todo o
-                quadro, centralizada vertical e horizontalmente. A única diferença de configuração em relação ao modo
-                <b>fitheight</b> é que o <i>div</i> principal deve possuir a classe <b>cover</b>. Todo o resto é igual,
-                inclusive a definição do tamanho na propriedade <b>style</b>:
-              </p>
-              <br />
-              <h2>Com Miniaturas</h2>
-              <p>Também é possível as mesmas configurações anteriormente informadas, porém exibindo a miniatura. Neste
-                caso, basta adicionar a classe <i>miniatura</i> ao div principal:</p>
 
-              <h3>Padrão com Miniatura</h3>
-              <br />
-              <!-- echo jcemslider([$items], ['miniatura']); -->
+              <h2>With Thumbnails</h2>
+              <p>It is also possible to use the same configurations previously informed, but displaying the thumbnail.
+                On that
+                In that case, just add the <i>thumbnail</i> class to the main div.</p>
+
+              <h3>Standard with Thumbnail</h3>
+
               <div class='show_sld_miniatura'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <h3>Altura Fixa com Miniatura</h3>
-              <!--
-                  START :: SLIDER
-                  TAMANHO PROPORTCIONAL MINIATURA
-                  -->
-              <!-- jcemslider([$items], ['miniatura'], ['height' => ''], '15rem');-->
+
+              <h3>Fixed height with thumbnaila</h3>
+
               <div class="show_sld_fixed_height_miniatura"></div>
               <pre><code class="language-html"></code></pre>
-              <br /><br />
-              <h3>Cover com Miniatura</h3>
-              <br />
-              <!-- jcemslider([$items], ['miniatura', 'cover'], ['height' => ''], '15rem');-->
+
+              <h3>Cover with Thumbnail</h3>
+
               <div class='show_sld_cover_miniatura'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
 
-              <h2>Efeito Fade</h2>
-              <!-- jcemslider([$items], ['cover', 'fade'], ['height' => ''], '15rem'); -->
+              <h2>Fade Effect</h2>
+
+              <p>In any of the above modes it is possible to opt for the fade transition, just add the
+                classse <b>fade</b> to the main <i>div</i>.</p>
               <div class='show_sld_cover_fade'></div>
               <pre><code class="language-html"></code></pre>
-              <p>Em qualquer dos modos acima, é possível optar pela transição fade, bastando para isso, adicionar a
-                classse <b>fade</b> ao <i>div</i> principal, como se segue:</p>
-              <br />
-              <h2>Posição da Navegação</h2>
-              <!-- jcemslider([$items], ['cover', 'topnav'], ["height" => ''], '15rem'); -->
+
+              <h2>Navigator position</h2>
+              <p>It is possible to display the navigation bubbles at the top by adding the <b>topnav</b> class to the
+                <i>div</i> main.
+              </p>
+
               <div class='show_sld_cover_topnav'></div>
               <pre><code class="language-html"></code></pre>
-              <p>É possível exibir as bolinhas de navegação na parte superior adicionando a classe <b>topnav</b> ao
-                <i>div</i> principal:
-              </p>
-              <br />
-              <h2>Miniaturas Laterais</h2>
-              <!-- jcemslider([$items], ['miniatura', 'cover', 'topnav', 'leftnav'], ["height" => ''], null, '15rem'); -->
+
+              <h2>Side Thumbnails</h2>
+              <p>It is possible to display the thumbnails laterally, just apply the <b>leftnav</b> or <b>righttnav</b>
+                class
+                to the main <i>div</i>.</p>
+
+              <p><strong>Important</strong>: In this case, the <strong>height</strong> sub-property of <i>style</i> is
+                NOT
+                must be placed in the <i>.mgs</i> element, but in the main <i>div</i> element.</p>
+
               <div class='show_sld_cover_mini_left'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <!-- jcemslider([$items], ['miniatura', 'cover', 'topnav', 'rightnav'], ["height" => ''], null, '15rem'); -->
+
               <div class='show_sld_cover_mini_right'></div>
               <pre><code class="language-html"></code></pre>
-              <p>É possível exibir as miniaturas lateralmente, basta aplicar a classe <b>leftnav</b> ou <b>righttnav</b>
-                ao <i>div</i> principal:</p>
-              <br />
-              <p><strong>Importante</strong>: Neste caso, a subpropriedade <strong>height</strong> de <i>style</i> NÃO
-                deve ser colocada no elemento <i>.mgs</i>, mas no elemento principal <i>div</i>.</p>
-              <br /><br />
-              <h2>Texto Lateral com ou sem Miniaturas</h2>
-              <!-- jcemslider([$items], ['righttext', 'cover'], ["height" => ''], null, '15rem'); -->
+
+              <h2>Side text with or without thumbnails</h2>
               <div class='show_sld_cover_righttext'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <!-- jcemslider([$items], ['lefttext', 'cover', 'topnav'], ["height" => ''], null, '15rem'); -->
+
               <div class='show_sld_cover_lefttext'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <!-- jcemslider([$items], ['miniatura', 'lefttext', 'cover', 'topnav'], ["height" => ''], '15rem'); -->
+
               <div class='show_sld_cover_lefttext2'></div>
               <pre><code class="language-html"></code></pre>
-              <br />
-              <h2>Automatização com Javascript</h2>
-              <!-- jcemslider([$items], ['cover'], ['js' => 'true', "height" => ''], '15rem'); -->
-              <div class='show_sld_cover_auto'></div>
-              <br />
-              <p>Junto com o pacote é incluso um pequeno e puro javascript, que permite a passagem automática das
-                imagens. Para habilitar basta incluir o javascript e adicionar a propriedade <b>js</b> ao <i>div</i>
-                principal, como se segue:</p>
-              <br />
-              <!-- HTML generated using hilite.me -->
-              <div
-                style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                <table>
-                  <tr>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">1
-2</pre>
-                    </td>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;src/jcemslider.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
-<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">js=</span><span style="background-color: #fff0f0">&#39;1&#39;</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider5&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider cover&#39;</span> <span style="color: #0000CC">height</span><span style="color: #007700">&gt;</span>
-</pre>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <br />
-              <p>Também é possivel especificar na propriedade <b>js</b> os milisegundos da transição de imagens,
-                bastando para isso colocar algum valor numérico, com exemplo abaixo:</p><br />
-              <!-- HTML generated using hilite.me -->
-              <div
-                style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                <table>
-                  <tr>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">1</pre>
-                    </td>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%"><span style="color: #333333">&lt;</span>div js<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;3000&#39;</span> data<span style="color: #333333">-</span>slider<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;slider5&#39;</span> <span style="color: #008800; font-weight: bold">class</span><span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;jcemslider cover&#39;</span> height<span style="color: #333333">&gt;</span>
-</pre>
-                    </td>
-                  </tr>
-                </table>
-              </div>
 
-              <br />
-              <p>É possível também iniciar um slider manualmente via javascript, inclusive especificando o tempo de
-                transição, conforme o seguinte código:</p><br />
-              <!-- HTML generated using hilite.me -->
-              <div
-                style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                <table>
-                  <tr>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">1</pre>
-                    </td>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">jcemslider(<span style="color: #007020">document</span>.querySelectorAll(<span style="background-color: #fff0f0">&#39;div.jcemslider[data-slider][js]&#39;</span>), <span style="color: #0000DD; font-weight: bold">3000</span>);
-</pre>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <br />
-              <h2>Código</h2>
-              <br />
-              <p>Basicamente todas as configurações são definidas no <strong>div</strong> principal:</p><br />
-              <!-- HTML generated using hilite.me -->
-              <div
-                style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                <table>
-                  <tr>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">1</pre>
-                    </td>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span>  <span style="color: #0000CC">js=</span><span style="background-color: #fff0f0">&#39;true&#39;</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider1&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider&#39;</span><span style="color: #007700">&gt;</span>
-</pre>
-                    </td>
-                  </tr>
-                </table>
-              </div><br />
-              <p>Apenas a altura máxima, para os casos em que desejar que as imagens sejam exibidas em modo <i>cover</i>
-                ou em <i>fitheight</i> será necessário especificar o tamanho no elemento <i>.mgs</i>:</p><br />
-              <!-- HTML generated using hilite.me -->
-              <div
-                style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                <table>
-                  <tr>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%">1</pre>
-                    </td>
-                    <td>
-                      <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgs&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;height: 15rem !important;&#39;</span><span style="color: #007700">&gt;</span>
-</pre>
-                    </td>
-                  </tr>
-                </table>
-              </div><br />
-              <p>Maiores informações podem ser obtidas olhando o código fonte disponível no <a
-                  href='https://github.com/JeanCarloEM/jcemslider' target='_blank'>github</a>.</p>
-              <h2>Esquema HTML</h2>
-              <div>
-                <!-- HTML generated using hilite.me -->
-                <div
-                  style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-                  <table>
-                    <tr>
-                      <td>
-                        <pre style="margin: 0; line-height: 125%"> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79</pre>
-                      </td>
-                      <td>
-                        <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span>  <span style="color: #0000CC">js=</span><span style="background-color: #fff0f0">&#39;true&#39;</span> <span style="color: #0000CC">data-slider=</span><span style="background-color: #fff0f0">&#39;slider1&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;jcemslider&#39;</span><span style="color: #007700">&gt;</span>
-  <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;radio&#39;</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&#39;slider1_img1&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;sldtxt&#39;</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&#39;slider1_slider1&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;0&#39;</span> <span style="color: #0000CC">checked</span> <span style="color: #007700">/&gt;</span>
-  <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;radio&#39;</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&#39;slider1_img2&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;sldtxt&#39;</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&#39;slider1_slider1&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;1&#39;</span> <span style="color: #007700">/&gt;</span>
-  <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;radio&#39;</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&#39;slider1_img3&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;sldtxt&#39;</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&#39;slider1_slider1&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;2&#39;</span> <span style="color: #007700">/&gt;</span>
-  <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;radio&#39;</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&#39;slider1_img4&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;sldtxt&#39;</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&#39;slider1_slider1&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;3&#39;</span> <span style="color: #007700">/&gt;</span>
-  <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgs&#39;</span><span style="color: #007700">&gt;</span>
-    <span style="color: #007700">&lt;a</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;qdr&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;0&#39;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgi&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;background-image: url(&quot;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg&quot;) !important;&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg&#39;</span> <span style="color: #007700">/&gt;&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;cnt&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;h3</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;ttl&#39;</span><span style="color: #007700">&gt;</span>My Photo 1<span style="color: #007700">&lt;/h3&gt;</span>
-        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;text&#39;</span><span style="color: #007700">&gt;</span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-        <span style="color: #007700">&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;/div&gt;</span>
-    <span style="color: #007700">&lt;/a&gt;</span>
-    <span style="color: #007700">&lt;a</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;qdr&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;1&#39;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgi&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;background-image: url(&quot;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg&quot;) !important;&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg&#39;</span> <span style="color: #007700">/&gt;&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;cnt&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;h3</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;ttl&#39;</span><span style="color: #007700">&gt;</span>My Photo 2<span style="color: #007700">&lt;/h3&gt;</span>
-        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;text&#39;</span><span style="color: #007700">&gt;</span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-        <span style="color: #007700">&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;/div&gt;</span>
-    <span style="color: #007700">&lt;/a&gt;</span>
-    <span style="color: #007700">&lt;a</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;qdr&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;2&#39;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgi&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;background-image: url(&quot;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg&quot;) !important;&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg&#39;</span> <span style="color: #007700">/&gt;&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;cnt&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;h3</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;ttl&#39;</span><span style="color: #007700">&gt;</span>My Photo 3<span style="color: #007700">&lt;/h3&gt;</span>
-        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;text&#39;</span><span style="color: #007700">&gt;</span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-        <span style="color: #007700">&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;/div&gt;</span>
-    <span style="color: #007700">&lt;/a&gt;</span>
-    <span style="color: #007700">&lt;a</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;qdr&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;3&#39;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;mgi&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&#39;background-image: url(&quot;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg&quot;) !important;&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg&#39;</span> <span style="color: #007700">/&gt;&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;cnt&#39;</span><span style="color: #007700">&gt;</span>
-        <span style="color: #007700">&lt;h3</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;ttl&#39;</span><span style="color: #007700">&gt;</span>My Photo 4<span style="color: #007700">&lt;/h3&gt;</span>
-        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;text&#39;</span><span style="color: #007700">&gt;</span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do...
-        <span style="color: #007700">&lt;/div&gt;</span>
-      <span style="color: #007700">&lt;/div&gt;</span>
-    <span style="color: #007700">&lt;/a&gt;</span>
-  <span style="color: #007700">&lt;/div&gt;</span>
-  <span style="color: #007700">&lt;nav</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;pvnt&#39;</span><span style="color: #007700">&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img1&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;pvnt fas&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;0&#39;</span><span style="color: #007700">&gt;&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img2&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;pvnt fas&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;1&#39;</span><span style="color: #007700">&gt;&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img3&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;pvnt fas&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;2&#39;</span><span style="color: #007700">&gt;&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img4&#39;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;pvnt fas&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;3&#39;</span><span style="color: #007700">&gt;&lt;/label&gt;</span>
-  <span style="color: #007700">&lt;/nav&gt;</span>
-  <span style="color: #007700">&lt;nav</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&#39;seletor&#39;</span><span style="color: #007700">&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img1&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;0&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;background-image: url(&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg&#39;);&quot;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOk5hdHVyZS1WaWV3LmpwZw==.jpg&#39;</span> <span style="color: #007700">/&gt;</span>
-    <span style="color: #007700">&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img2&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;1&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;background-image: url(&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg&#39;);&quot;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly9jb21tb25zLndpa2ltZWRpYS5vcmcvd2lraS9GaWxlOllvc2VtaXRlX25hdGlvbmFsX3BhcmtfbGFrZV9yb2Nrc19tb3VudGFpbnNfYXV0dW1uX25hdHVyZS5qcGc=.jpg&#39;</span> <span style="color: #007700">/&gt;</span>
-    <span style="color: #007700">&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img3&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;2&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;background-image: url(&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg&#39;);&quot;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8zLzNhL0VsX1BhcnJpc2FsXy1fcGFub3JhbWlvLmpwZw==.jpg&#39;</span> <span style="color: #007700">/&gt;</span>
-    <span style="color: #007700">&lt;/label&gt;</span>
-    <span style="color: #007700">&lt;label</span> <span style="color: #0000CC">for=</span><span style="background-color: #fff0f0">&#39;slider1_img4&#39;</span> <span style="color: #0000CC">ndc=</span><span style="background-color: #fff0f0">&#39;3&#39;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;background-image: url(&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg&#39;);&quot;</span><span style="color: #007700">&gt;</span>
-      <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&#39;assets/img/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy81LzVkL1BpY2tldHQtYXJjaC1sYWtlLXRuMS5qcGc=.jpg&#39;</span> <span style="color: #007700">/&gt;</span>
-    <span style="color: #007700">&lt;/label&gt;</span>
-  <span style="color: #007700">&lt;/nav&gt;</span>
-<span style="color: #007700">&lt;/div&gt;</span>
-</pre>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+              <h2>Automatic Sliding with Javascript</h2>
+
+              <p>Along with the package, a small and pure javascript is included, which allows automatic scrolling of
+                the
+                images. To activate it, just include the javascript and add the <b>js</b> property to the <i>div</i></p>
+              <div class='show_sld_cover_auto'></div>
+              <pre><code class="language-html"></code></pre>
+
+              <p>It is also possible to specify in the <b>js</b> property the milliseconds of the image transition,
+                simply putting some numerical value, with the example below:</p>
+              <pre><code class="language-html">&lt;div js='3000' data-slider='slider5' class='jcemslider cover' height&gt;</code></pre>
+
+              <p>It is also possible to launch a slider manually via javascript, including specifying the duration of
+                the slider.
+                transition, according to the following code:</p>
+              <pre><code class="language-js">jcemslider(document.querySelectorAll('div.jcemslider[data-slider][js]'), 3000);</code></pre>
+
+              <h2>HTML</h2>
+              <p>With rare exceptions, the settings are defined in the main <strong>div</strong>.</p>
+              <pre><code class="language-html">&lt;div class=&quot;jcemslider&quot; data-slider=&quot;jcemlider_uid&quot;&gt;</code></pre>
+
+              <p>Only when you want to fix the maximum height (skin, cover or fitheight mode...) is it necessary to
+                specify the size in the <i>.mgs</i> element.</p>
+              <pre><code class="language-html">&lt;div class='mgs' style='height: 15rem !important;'&gt;</code></pre>
+
+              <h3>Summary HTML structure:</h3>
+              <p>Structural skeleton</p>
+              <pre><code class="language-html">
+&lt;div class=&quot;jcemslider&quot; data-slider=&quot;jcemlider_uid&quot;&gt;
+  &lt;!-- navigation balls --&gt;
+  ...
+  &lt;div class=&quot;mgs&quot;&gt;
+    &lt;!-- Items/Images --&gt;
+    ...
+  &lt;/div&gt;
+  &lt;nav class=&quot;pvnt&quot;&gt;
+    &lt;!-- &quot;Previous&quot; and &quot;next&quot; navigation arrow. --&gt;
+    ...
+  &lt;/nav&gt;
+  &lt;nav class=&quot;seletor&quot;&gt;
+    &lt;!-- Thumbnails --&gt;
+    ...
+  &lt;/nav&gt;
+&lt;/div&gt;
+              </code></pre>
+
+              <p>Example of navigation balls</p>
+              <pre><code class="language-html">
+&lt;input ndc='0' id='input_id_0' type=&quot;radio&quot; class=&quot;sldtxt&quot; name=&quot;jcemslider_uid&quot; checked=&quot;&quot;&gt;
+...
+&lt;input ndc='4' id='input_id_4' type=&quot;radio&quot; class=&quot;sldtxt&quot; name=&quot;jcemslider_uid&quot;&gt;
+              </code></pre>
+
+              <p>Sample items/pictures. Note that it is possible to have no images, however the IMG tag must be
+                retained.</p>
+              <pre><code class="language-html">
+&lt;a ndc=&quot;0&quot; class=&quot;qdr&quot;&gt;
+  &lt;div class='mgi' style=&quot;background-image: url('uri/to/image') !important;&quot;&gt;
+    &lt;img src='uri/to/image'&gt; /&gt;
+  &lt;/div&gt;
+  &lt;div class='cnt'&gt;
+    &lt;div class='ttl'&gt;My Photo 1
+    &lt;/div&gt;
+    &lt;div class='text'&gt;This text 1.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/a&gt;
+...
+              </code></pre>
+
+              <p>Sample code for "previous" and "next" navigation. Note that the number of browsers must equal the
+                number of items.</p>
+              <pre><code class="language-html">
+&lt;label ndc='0' for='input_id_0' class=&quot;pvnt fas&quot;&gt;&lt;/label&gt;
+...
+&lt;label ndc='4' for='input_id_4' class=&quot;pvnt fas&quot;&gt;&lt;/label&gt;
+              </code></pre>
+
+              <p>Sample code for the thumbnail browser. Note that the number of browsers must equal the number of items.
+              </p>
+              <pre><code class="language-html">
+&lt;label ndc='0' for='input_id_0' style=&quot;background-image: url('uri/to/image');&quot;&gt;
+  &lt;img src='uri/to/image'&gt;
+&lt;/label&gt;
+...
+&lt;label ndc='4' for='input_id_4' style=&quot;background-image: url('uri/to/image');&quot;&gt;
+	&lt;img src='uri/to/image'&gt;
+&lt;/label&gt;
+              </code></pre>
+
+              <h3>Full HTML example</h3>
+              <pre class="full"><code class="language-html"></code></pre>
             </div>
-            <br />
-            <br />
+
           </article>
         </section>
       </section>
@@ -613,7 +439,7 @@
               <p><big><b>ATENÇÃO</b></big>: <b>JCEM-Slider</b> está licenciado sob <big><a
                     href='https://choosealicense.com/licenses/mpl-2.0/' target='_blanck'>Mozila Public License
                     2.0</a></big>. A licença padrão, linkada no rodapé deste, não se aplica aos códigos do projeto.</p>
-              <br />
+
             </div>
             <div class="textwidget custom-html-widget">
               <p><b>Importante:</b> Ao acessar este e qualquer site/blog presente no domínio e subdomínios de
@@ -626,7 +452,7 @@
                 subdomínios) e ainda, abandonará (sairá) imediatamente e impreterivelmente de qualquer domínio e
                 subdominios de jeancarloem.com.
               </p>
-              <br />
+
             </div>
           </side>
         </div>
