@@ -240,6 +240,11 @@
 
       for (let i = 0; i < itms.length; i++) {
         let id = '#' + itms[i].id + " + " + "pre > code";
+
+        if (i === 0) {
+          id = 'pre.full > code';
+        }
+
         let otml = itms[i].outerHTML;
 
         itms[i] = otml

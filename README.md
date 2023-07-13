@@ -40,14 +40,18 @@ Summary HTML structure:
 ```html
 <div class="jcemslider" data-slider="jcemlider_uid">
   <!-- navigation balls -->
+  ...
   <div class="mgs">
     <!-- Items/Images -->
+    ...
   </div>
   <nav class="pvnt">
     <!-- "Previous" and "next" navigation arrow. -->
+    ...
   </nav>
   <nav class="seletor">
     <!-- Thumbnails -->
+    ...
   </nav>
 </div>
 ```
